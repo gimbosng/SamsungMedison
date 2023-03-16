@@ -1,0 +1,6 @@
+C:\Users\gimbo\Downloads\기술면접과제_2023_상반기\기술면접과제_2023_상반기\C#\bin\Debug\VideoRental.exe
+C:\Users\gimbo\Downloads\기술면접과제_2023_상반기\기술면접과제_2023_상반기\C#\bin\Debug\VideoRental.pdb
+C:\Users\gimbo\Downloads\기술면접과제_2023_상반기\기술면접과제_2023_상반기\C#\obj\Debug\VideoRental.csproj.AssemblyReference.cache
+C:\Users\gimbo\Downloads\기술면접과제_2023_상반기\기술면접과제_2023_상반기\C#\obj\Debug\VideoRental.csproj.CoreCompileInputs.cache
+C:\Users\gimbo\Downloads\기술면접과제_2023_상반기\기술면접과제_2023_상반기\C#\obj\Debug\VideoRental.exe
+C:\Users\gimbo\Downloads\기술면접과제_2023_상반기\기술면접과제_2023_상반기\C#\obj\Debug\VideoRental.pdb
