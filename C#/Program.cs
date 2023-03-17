@@ -37,6 +37,7 @@ namespace VideoRental
             movieList.Add(new Movie( "신작2",Movie.NEW_RELEASE ));
             movieList.Add(new Movie( "어린이1", Movie.CHILDRENS ));
             movieList.Add(new Movie( "어린이2", Movie.CHILDRENS ));
+            movieList.Add(new Movie("스릴러", Movie.THRILLER));
 
             do
             {
@@ -243,6 +244,8 @@ namespace VideoRental
                 return string.Format("[NEW_RELEASE] {0}", movie.getTitle());
             else if (movie.getPriceCode() == 2)
                 return string.Format("[CHILDRENS] {0}", movie.getTitle());
+            else if (movie.getPriceCode() == 3)
+                return string.Format("[THRILLER] {0}", movie.getTitle());
             else
                 return "";
         }
