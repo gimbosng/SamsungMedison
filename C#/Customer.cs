@@ -81,6 +81,25 @@ namespace VideoRental
             return result.ToString();
         }
 
+        public string newFormat()
+        {
+            StringBuilder result = new StringBuilder();
+            IEnumerator<Rental> enumerator = customerRental.GetEnumerator();
+            for (; enumerator.MoveNext();)
+            {
+                Rental each = enumerator.Current;
+                Movie movie = each.getMovie();
+                switch (movie.getPriceCode())
+                {
+                    case 0: result.AppendLine(String.Format("REGULAR {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode()));  break;
+                    case 1: result.AppendLine(String.Format("NEW_RELEASE {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode())); break;
+                    case 2: result.AppendLine(String.Format("CHILDRENS {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode())); break;
+                    case 3: result.AppendLine(String.Format("THRILLER {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode())); break;
+                }
+            }
+            return result.ToString();
+        }
+
         private string customerName;
         private List<Rental> customerRental = new List<Rental>();
     }

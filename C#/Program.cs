@@ -276,7 +276,7 @@ namespace VideoRental
 
         static string printReceipt(Customer customer)
         {
-            return customer.statement();
+            return customer.statement() + Environment.NewLine + customer.newFormat();
         }
     }
 }
