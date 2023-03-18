@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static VideoRental.Movie;
 
 namespace VideoRental
 {
@@ -31,35 +32,31 @@ namespace VideoRental
 
             result.AppendLine("Rental Record for " + getName());
 
-
-            IEnumerator<Rental> enumerator = customerRental.GetEnumerator();
-
-            for (; enumerator.MoveNext();)
+            foreach (Rental item in customerRental)
             {
                 double thisAmount = 0.0;
-                Rental each = enumerator.Current;
-
-                switch (each.getMovie().getPriceCode())
+                Movie movie = item.getMovie();
+                switch (movie.getPriceCode())
                 {
-                    case Movie.REGULAR:
+                    case Genre.REGULAR:
                         thisAmount += 2.0;
-                        if (each.getDaysRented() > 2)
-                            thisAmount += (each.getDaysRented() - 2) * 1.5;
+                        if (item.getDaysRented() > 2)
+                            thisAmount += (item.getDaysRented() - 2) * 1.5;
                         break;
-                    case Movie.NEW_RELEASE:
-                        thisAmount += each.getDaysRented() * 3;
+                    case Genre.NEW_RELEASE:
+                        thisAmount += item.getDaysRented() * 3;
                         break;
 
-                    case Movie.CHILDRENS:
+                    case Genre.CHILDRENS:
                         thisAmount += 1.5;
-                        if (each.getDaysRented() > 3)
-                            thisAmount += (each.getDaysRented() - 3) * 1.5;
+                        if (item.getDaysRented() > 3)
+                            thisAmount += (item.getDaysRented() - 3) * 1.5;
                         break;
 
-                    case Movie.THRILLER:
+                    case Genre.THRILLER:
                         thisAmount += 2.0;
-                        if (each.getDaysRented() > 2)
-                            thisAmount += (each.getDaysRented() - 2) * 1.5;
+                        if (item.getDaysRented() > 2)
+                            thisAmount += (item.getDaysRented() - 2) * 1.5;
                         break;
                 }
 
@@ -67,11 +64,11 @@ namespace VideoRental
                 frequentRenterPoints++;
 
                 // Add bonus for a two day new release rental
-                if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-                        && each.getDaysRented() > 1) frequentRenterPoints++;
+                if ((item.getMovie().getPriceCode() == Genre.NEW_RELEASE)
+                        && item.getDaysRented() > 1) frequentRenterPoints++;
 
                 // Show figures for this rental
-                result.AppendLine("\t" + each.getMovie().getTitle() + "\t" + thisAmount.ToString());
+                result.AppendLine("\t" + item.getMovie().getTitle() + "\t" + thisAmount.ToString());
                 totalAmount += thisAmount;
             }
 
@@ -84,18 +81,10 @@ namespace VideoRental
         public string newFormat()
         {
             StringBuilder result = new StringBuilder();
-            IEnumerator<Rental> enumerator = customerRental.GetEnumerator();
-            for (; enumerator.MoveNext();)
+            foreach (Rental item in customerRental)
             {
-                Rental each = enumerator.Current;
-                Movie movie = each.getMovie();
-                switch (movie.getPriceCode())
-                {
-                    case 0: result.AppendLine(String.Format("REGULAR {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode()));  break;
-                    case 1: result.AppendLine(String.Format("NEW_RELEASE {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode())); break;
-                    case 2: result.AppendLine(String.Format("CHILDRENS {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode())); break;
-                    case 3: result.AppendLine(String.Format("THRILLER {0} {1} {2}", movie.getTitle(), each.getDaysRented(), movie.getPriceCode())); break;
-                }
+                Movie movie = item.getMovie();
+                result.AppendLine(string.Format("{0}\t{1}\t{2}\t{3}", movie.getPriceCode(), movie.getTitle(), item.getDaysRented(), (int)movie.getPriceCode()));
             }
             return result.ToString();
         }

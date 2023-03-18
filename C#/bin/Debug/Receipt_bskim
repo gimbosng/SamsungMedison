@@ -1,6 +1,9 @@
 Rental Record for bskim
 	일반1	2
-	신작2	9
-	어린이1	3
-Amount owed is 14
-You earned 4 frequent renter points
+	스릴러	3.5
+Amount owed is 5.5
+You earned 2 frequent renter points
+
+장르	제목	대여기간	가격
+REGULAR	일반1	2	0
+THRILLER	스릴러	3	3

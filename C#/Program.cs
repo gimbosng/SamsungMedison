@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 // Add
 using System.IO;
+using System.Diagnostics;
+using static VideoRental.Movie;
 
 namespace VideoRental
 {
@@ -37,13 +39,13 @@ namespace VideoRental
             int retry = 0, retryMax = 3;
             bool backMain = false;
 
-            movieList.Add(new Movie( "일반1", Movie.REGULAR ));
-            movieList.Add(new Movie( "일반2", Movie.REGULAR ));
-            movieList.Add(new Movie( "신작1", Movie.NEW_RELEASE ));
-            movieList.Add(new Movie( "신작2",Movie.NEW_RELEASE ));
-            movieList.Add(new Movie( "어린이1", Movie.CHILDRENS ));
-            movieList.Add(new Movie( "어린이2", Movie.CHILDRENS ));
-            movieList.Add(new Movie("스릴러", Movie.THRILLER));
+            movieList.Add(new Movie("일반1", Genre.REGULAR));
+            movieList.Add(new Movie("일반2", Genre.REGULAR));
+            movieList.Add(new Movie("신작1", Genre.NEW_RELEASE));
+            movieList.Add(new Movie("신작2", Genre.NEW_RELEASE));
+            movieList.Add(new Movie("어린이1", Genre.CHILDRENS));
+            movieList.Add(new Movie("어린이2", Genre.CHILDRENS));
+            movieList.Add(new Movie("스릴러", Genre.THRILLER));
 
             do
             {
@@ -200,6 +202,7 @@ namespace VideoRental
                             Console.WriteLine(saveReceipt(customer));
                         }
                         Console.WriteLine("------------------");
+                        Process.Start(Directory.GetCurrentDirectory());
                         currentMenu = Menu.Main;
                         break;
 
@@ -244,16 +247,7 @@ namespace VideoRental
 
         static string printMovieInfo(Movie movie)
         {
-            if (movie.getPriceCode() == 0)
-                return string.Format("[REGULAR] {0}", movie.getTitle());
-            else if (movie.getPriceCode() == 1)
-                return string.Format("[NEW_RELEASE] {0}", movie.getTitle());
-            else if (movie.getPriceCode() == 2)
-                return string.Format("[CHILDRENS] {0}", movie.getTitle());
-            else if (movie.getPriceCode() == 3)
-                return string.Format("[THRILLER] {0}", movie.getTitle());
-            else
-                return "";
+            return string.Format("[{0}] {1}", movie.getPriceCode().ToString(), movie.getTitle());
         }
 
         static void rentMovie(string customerID, Movie movie, int period)
@@ -271,7 +265,7 @@ namespace VideoRental
             try
             {
                 string fileName = Path.Combine(Directory.GetCurrentDirectory(), "Receipt_" + customer.getName());
-                File.WriteAllText(fileName, customer.statement());
+                File.WriteAllText(fileName, printReceipt(customer));
                 return "Receipt_" + customer.getName() + ".txt";
             }
             catch (Exception ex)
@@ -282,7 +276,7 @@ namespace VideoRental
 
         static string printReceipt(Customer customer)
         {
-            return customer.statement() + Environment.NewLine + customer.newFormat();
+            return customer.statement() + Environment.NewLine + "장르\t제목\t대여기간\t가격\r\n" + customer.newFormat();
         }
     }
 }
