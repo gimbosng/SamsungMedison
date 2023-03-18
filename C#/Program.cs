@@ -7,6 +7,12 @@ using System.IO;
 
 namespace VideoRental
 {
+    /*  수정 필요 목록
+     *  1. Movie 장르를 상수(const) 대신 열거형(enum)으로 변경 => 잘못 입력할 가능성을 줄이고, 문자열과 숫자에 모두 사용 가능
+     *  2. 1번 문제 수정에 따라, if문도 switch문으로 수정하여 버그 발생 가능성을 줄임
+     *  3. Customer.cs 클래스의 for문과 MoveNext() 대신 foreach 문 사용 => 코드 간소화
+     */
+
     class Program
     {
         enum Menu
